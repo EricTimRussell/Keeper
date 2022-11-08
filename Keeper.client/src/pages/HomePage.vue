@@ -6,13 +6,16 @@
         <KeepCard :keeps="k" />
       </div>
     </div>
-
   </main>
+
+
+
 </template>
 
 <script>
 import { computed } from "@vue/reactivity";
 import { onMounted } from "vue";
+import { useRoute } from "vue-router";
 import { AppState } from "../AppState";
 import KeepCard from "../components/KeepCard.vue";
 import { keepsService } from "../services/KeepsService";
@@ -32,7 +35,8 @@ export default {
     })
     return {
       profile: computed(() => AppState.account),
-      keeps: computed(() => AppState.keeps)
+      keeps: computed(() => AppState.keeps),
+      keep: computed(() => AppState.activeKeep),
     }
   },
   components: { KeepCard }

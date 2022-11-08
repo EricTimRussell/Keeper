@@ -11,5 +11,15 @@ class KeepsService {
     AppState.keeps = res.data.map(k => new Keep(k))
   }
 
+  async getKeepById(id) {
+    const res = await api.get(`api/keeps/${id}`)
+    console.log(res.data);
+    AppState.activeKeep = new Keep(res.data)
+  }
+
+  async createKeep(keepData) {
+    const res = await api.post('api/keeps', keepData)
+    AppState.keeps.push(new Keep(res.data))
+  }
 }
 export const keepsService = new KeepsService()

@@ -1,24 +1,25 @@
 <template>
-  <form>
+  <form @submit.prevent="createKeep()">
     <div class="form-floating mb-3">
-      <input type="title" class="form-control" id="floatingInput" placeholder="Title">
-      <label for="floatingInput">Title...</label>
+      <input v-model="editable.name" type="text" class="form-control" id="keepName" placeholder="Title">
+      <label for="keepName">Name...</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="image" placeholder="Image">
-      <label for="floatingPassword">Image Url..</label>
+      <input v-model="editable.img" type="url" class="form-control" id="keepImage" placeholder="Image">
+      <label for="keepImage">Image Url..</label>
     </div>
     <div class="form-floating my-3">
-      <input type="password" class="form-control" id="tags" placeholder="Tags">
-      <label for="floatingPassword">Tags...</label>
+      <input v-model="editable.tags" type="text" class="form-control" id="keepTags" placeholder="Tags">
+      <label for="keepTags">Tags...</label>
     </div>
     <div class="form-floating">
-      <textarea class="form-control" placeholder="keep description" id="Description" style="height: 100px"></textarea>
-      <label for="floatingTextarea2">Keep Description</label>
+      <textarea v-model="editable.description" class="form-control" placeholder="keep description" id="keepDescription"
+        style="height: 100px"></textarea>
+      <label for="keepDescription">Description...</label>
     </div>
     <div class="my-3">
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      <button type="button" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </div>
   </form>
 
@@ -27,9 +28,26 @@
 
 
 <script>
+import { Modal } from "bootstrap";
+import { ref } from "vue";
+import { keepsService } from "../services/KeepsService";
+import Pop from "../utils/Pop";
+
 export default {
   setup() {
-    return {}
+    const editable = ref({})
+    return {
+      editable,
+      async createKeep() {
+        try {
+          const formData = editable.value
+          await keepsService.createKeep(formData)
+          Modal.getOrCreateInstance('#keep').hide()
+        } catch (error) {
+          Pop.error(error, "Creating Keep")
+        }
+      }
+    }
   }
 }
 </script>

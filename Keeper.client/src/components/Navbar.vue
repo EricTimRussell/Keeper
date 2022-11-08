@@ -10,8 +10,8 @@
             Create
           </button>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Vault</a></li>
-            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Keep</a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#vault">Vault</a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#keep">Keep</a></li>
           </ul>
         </div>
       </div>

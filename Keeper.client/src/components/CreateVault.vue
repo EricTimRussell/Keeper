@@ -1,15 +1,40 @@
 <template>
-  <div class="component">
-
-
-  </div>
+  <form>
+    <div class="form-floating mb-3">
+      <input v-model="editable.name" type="text" class="form-control" id="vaultName" placeholder="Title">
+      <label for="floatingInput">Title...</label>
+    </div>
+    <div class="form-floating">
+      <input v-model="editable.img" type="url" class="form-control" id="vaultImg" placeholder="Image">
+      <label for="vaultImage">Image Url..</label>
+    </div>
+    <div class="my-3">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
 </template>
 
 
 <script>
+import { ref } from "vue";
+import { vaultsService } from "../services/VaultsService";
+import Pop from "../utils/Pop";
+
 export default {
   setup() {
-    return {}
+    const editable = ref({})
+    return {
+      editable,
+      async createVault() {
+        try {
+          const formData = editable.value
+          await vaultsService.createVault(formData)
+        } catch (error) {
+          Pop.error(error, "Creating Vault")
+        }
+      }
+    }
   }
 }
 </script>

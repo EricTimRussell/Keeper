@@ -6,5 +6,9 @@ export const AppState = reactive({
   /** @type {import('./models/Account.js').Account} */
   account: {},
   /** @type {import('./models/Keep').Keep[]} */
-  keeps: []
+  keeps: [],
+  activeKeep: {},
+  vaults: [],
+  accountVaults: [],
+  activeVault: {}
 })

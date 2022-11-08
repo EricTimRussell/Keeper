@@ -1,21 +1,50 @@
 <template>
-  <div class="card text-light bgimg d-flex card-shadow" :style="{ backgroundImage: `url(${keeps.img})` }">
-    <div class="card-body">
+
+  <body>
+    <div class="card text-light bgimg d-flex card-shadow" :style="{ backgroundImage: `url(${keeps.img})` }">
+      <div class="card-body">
+      </div>
+      <div class="card-footer outline d-flex justify-content-between text-shadow">
+        <h3 class="selectable" data-bs-toggle="modal" :data-bs-target="`#vaultKeep${keeps.id}`">
+          {{ keeps.name }}
+        </h3>
+        <router-link :to="{ name: 'Profile', params: { id: keeps.creatorId } }">
+          <img :src=profile.picture alt="profile img" class="profile-img">
+        </router-link>
+      </div>
     </div>
-    <div class="card-footer outline d-flex justify-content-between text-shadow">
-      <h3>{{ keeps.name }}</h3>
-      <router-link :to="{ name: 'Profile', params: { id: keeps.creatorId } }">
-        <img :src=profile.picture alt="profile img" class="profile-img">
-      </router-link>
+  </body>
+
+  <!-- View Keep Modal -->
+  <div class="modal fade" :id="`vaultKeep${keeps.id}`" tabindex="-1" aria-labelledby="Vault Keep" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="no-pad modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6 no-pad">
+                <img :src=keeps.img alt="Keep Image" class="img-fluid">
+              </div>
+              <div class="col-md-6 text-center">
+                <h1>{{ keeps.name }}</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
 </template>
 
 
 <script>
 import { computed } from "@vue/reactivity";
+import { useRoute } from "vue-router";
 import { AppState } from "../AppState";
 import { Keep } from "../models/Keep";
+import { keepsService } from "../services/KeepsService";
+import Pop from "../utils/Pop";
 
 
 export default {
@@ -23,6 +52,7 @@ export default {
     keeps: { type: Keep, required: true }
   },
   setup(props) {
+    const route = useRoute();
     return {
       profile: computed(() => AppState.account),
     }
