@@ -3,9 +3,11 @@
     <div class="card-body">
     </div>
     <div class="card-footer outline d-flex text-shadow">
-      <h3 class="selectable">
-        {{ vault.name }}
-      </h3>
+      <router-link :to="{ name: 'Vault', params: { id: vault.id } }">
+        <h3 class="selectable">
+          {{ vault.name }}
+        </h3>
+      </router-link>
     </div>
   </div>
 </template>

@@ -16,8 +16,24 @@
 
 
 <script>
+import { onMounted } from "vue";
+import { useRoute } from "vue-router";
+import { vaultsService } from "../services/VaultsService";
+import Pop from "../utils/Pop";
+
 export default {
   setup() {
+    const route = useRoute({})
+    async function getKeepsByVaultId() {
+      try {
+        await vaultsService.getKeepsByVaultId(route.params.id)
+      } catch (error) {
+        Pop.error(error, "Getting Vault Keeps By Id")
+      }
+    }
+    onMounted(() => {
+      getKeepsByVaultId()
+    })
     return {}
   }
 }
