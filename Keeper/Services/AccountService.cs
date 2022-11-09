@@ -23,12 +23,12 @@ public class AccountService
     return profile;
   }
 
-  internal Account Edit(Account editData, string userEmail)
+  internal Account Edit(Account editData, Account userInfo)
   {
-    Account original = GetProfileByEmail(userEmail);
-    original.Name = editData.Name.Length > 0 ? editData.Name : original.Name;
-    original.Picture = editData.Picture.Length > 0 ? editData.Picture : original.Picture;
-    original.CoverImg = editData.CoverImg;
+    Account original = GetProfileByEmail(userInfo.Email);
+    original.Name = editData.Name ?? original.Name;
+    original.Picture = editData.Picture ?? original.Picture;
+    original.CoverImg = editData.CoverImg ?? original.CoverImg;
     return _repo.Edit(original);
   }
 }

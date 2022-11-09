@@ -48,6 +48,7 @@ export default {
 <style lang="scss" scoped>
 .bgimg {
   height: 35vh;
+  max-width: 45vh;
   background-position: center;
   background-size: cover;
 }

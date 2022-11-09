@@ -24,7 +24,7 @@ public class VaultKeepsService
   internal List<KeptKeeps> GetKeepsInVault(int vaultId, string userId)
   {
     Vault foundVault = _vr.GetVault(vaultId);
-    if (foundVault.IsPrivate == true)
+    if (foundVault.IsPrivate == true && foundVault.CreatorId != userId)
     {
       throw new Exception("Vault is set to private");
     }

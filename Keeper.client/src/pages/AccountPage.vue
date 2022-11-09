@@ -1,13 +1,13 @@
 <template>
   <main class="container-fluid">
     <div class="row justify-content-center">
-      <div class="col-sm-12 col-md-8 d-flex justify-content-center"
+      <div class="col-sm-12 col-md-8 d-flex flex-column justify-content-end align-items-center bgimg my-4"
         :style="{ backgroundImage: `url(${account.coverImg})` }">
         <img :src=account.picture alt="profile pic" class="profile-img">
-        <div>
-          <i data-bs-toggle="modal" data-bs-target="#exampleModal" title="Edit Account"
-            class="mdi mdi-cog selectable"></i>
-        </div>
+      </div>
+      <div class="col-12 text-center">
+        <i data-bs-toggle="modal" data-bs-target="#exampleModal" title="Edit Account"
+          class="mdi mdi-cog selectable text-dark"></i>
       </div>
       <div class="col-12 d-flex justify-content-center">
         <h1>{{ account.name }}</h1>
@@ -121,5 +121,16 @@ export default {
 <style scoped>
 .profile-img {
   border-radius: 50%;
+  max-height: 12vh;
+  min-height: 12vh;
+  max-width: 12vh;
+  min-width: 12vh;
+}
+
+.bgimg {
+  height: 25vh;
+  width: 65vh;
+  background-position: center;
+  background-size: cover;
 }
 </style>

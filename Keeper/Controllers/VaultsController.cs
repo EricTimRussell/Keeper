@@ -37,11 +37,12 @@ public class VaultsController : ControllerBase
   }
 
   [HttpGet("{vaultId}")]
-  public ActionResult<Vault> GetVault(int vaultId)
+  public async Task<ActionResult<Vault>> GetVault(int vaultId)
   {
     try
     {
-      Vault foundVault = _vs.GetVault(vaultId);
+      Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
+      Vault foundVault = _vs.GetVault(vaultId, userInfo?.Id);
       return Ok(foundVault);
     }
     catch (Exception e)

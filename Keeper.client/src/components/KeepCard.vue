@@ -44,13 +44,19 @@
                 <!-- Add Keep to Vault -->
                 <div class="d-flex justify-content-between">
                   <div class="my-5 d-flex gap-3">
-                    <select class="form-select form-select-sm fs-5" aria-label=".form-select-sm">
-                      <option selected>Select Vault</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select>
-                    <button class="btn btn-primary">Save</button>
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Dropdown button
+                      </button>
+                      <div>
+                        <ul class="dropdown-menu">
+                          <div class="dropdown-item" v-for="v in vault" :key="v.id">
+                            <KeepModalDropdown :vault="v" />
+                          </div>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                   <img :src=profile.picture alt="profile pic" :title=profile.name class="profile-img mt-5">
                 </div>
@@ -71,6 +77,7 @@ import { AppState } from "../AppState";
 import { Keep } from "../models/Keep";
 import { keepsService } from "../services/KeepsService";
 import Pop from "../utils/Pop";
+import KeepModalDropdown from "./KeepModalDropdown.vue";
 
 export default {
   props: {
@@ -83,22 +90,22 @@ export default {
       async deleteKeep() {
         try {
           if (await Pop.confirm("Delete Keep?"))
-            await keepsService.deleteKeep(props.keeps.id)
-        } catch (error) {
-          Pop.error(error, "Deleting Keep")
+            await keepsService.deleteKeep(props.keeps.id);
+        }
+        catch (error) {
+          Pop.error(error, "Deleting Keep");
         }
       },
-
       async addKeepToVault() {
         try {
-
-        } catch (error) {
-          Pop.error(error, "Adding keep to vault")
+        }
+        catch (error) {
+          Pop.error(error, "Adding keep to vault");
         }
       }
-
-    }
-  }
+    };
+  },
+  components: { KeepModalDropdown }
 }
 </script>
 

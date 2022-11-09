@@ -15,14 +15,14 @@ public class VaultsService
     return _vr.CreateVault(newVault);
   }
 
-  internal Vault GetVault(int vaultId)
+  internal Vault GetVault(int vaultId, string userInfoId)
   {
     Vault foundVault = _vr.GetVault(vaultId);
     if (foundVault == null)
     {
       throw new Exception("Vault does not exist");
     }
-    if (foundVault.IsPrivate == true)
+    if (foundVault.IsPrivate == true && foundVault.CreatorId != userInfoId)
     {
       throw new Exception("Vault is private");
     }
@@ -31,7 +31,7 @@ public class VaultsService
 
   internal Vault UpdateVault(Vault vaultData, string userId)
   {
-    Vault originalVault = GetVault(vaultData.Id);
+    Vault originalVault = GetVault(vaultData.Id, userId);
     if (originalVault.CreatorId != userId)
     {
       throw new Exception("This vault does not belong to you");
@@ -47,7 +47,7 @@ public class VaultsService
 
   internal void DeleteVault(int vaultId, string userId)
   {
-    var vault = GetVault(vaultId);
+    var vault = GetVault(vaultId, userId);
     if (vault.CreatorId != userId)
     {
       throw new Exception("This vault does not belong to you");
