@@ -45,7 +45,20 @@ public class AccountController : ControllerBase
     }
   }
 
-
+  [HttpPut]
+  public async Task<ActionResult<Account>> Edit([FromBody] Account editedAccount, string userEmail)
+  {
+    try
+    {
+      Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+      Account account = _accountService.Edit(editedAccount, userEmail);
+      return Ok(account);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
 
 
 }

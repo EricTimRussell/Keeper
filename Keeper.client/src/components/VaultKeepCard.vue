@@ -12,7 +12,7 @@
     </div>
   </body>
 
-  <!-- View Keep Modal -->
+  <!-- View Keep Modal in vault-->
   <div class="modal fade" :id="`vaultKeep${keeps.id}`" tabindex="-1" aria-labelledby="Vault Keep" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
       <div class="modal-content">

@@ -29,8 +29,31 @@
               <div class="col-md-6 no-pad">
                 <img :src=keeps.img alt="Keep Image" class="img-fluid">
               </div>
-              <div class="col-md-6 text-center">
-                <h1>{{ keeps.name }}</h1>
+              <div class="col-md-6 text-center d-flex flex-column justify-content-between px-5 py-1">
+                <div class="d-flex justify-content-center">
+                  <h5 class="mdi mdi-eye-outline">&nbsp{{ keeps.views }}&nbsp&nbsp</h5>
+                  <h5 class="mdi mdi-alpha-k-box-outline">&nbsp{{ keeps.kept }}</h5>
+                </div>
+                <div>
+                  <h1>{{ keeps.name }} </h1>
+                  <p class="text-start">{{ keeps.description }} Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Accusamus animi
+                    illo nulla, maxime repudiandae saepe molestiae alias excepturi odio, quo officiis repellendus,
+                    corrupti rem est vero iste non blanditiis? Odit.</p>
+                </div>
+                <!-- Add Keep to Vault -->
+                <div class="d-flex justify-content-between">
+                  <div class="my-5 d-flex gap-3">
+                    <select class="form-select form-select-sm fs-5" aria-label=".form-select-sm">
+                      <option selected>Select Vault</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                    <button class="btn btn-primary">Save</button>
+                  </div>
+                  <img :src=profile.picture alt="profile pic" :title=profile.name class="profile-img mt-5">
+                </div>
               </div>
             </div>
           </div>
@@ -56,7 +79,7 @@ export default {
   setup(props) {
     return {
       profile: computed(() => AppState.account),
-
+      vault: computed(() => AppState.vaults),
       async deleteKeep() {
         try {
           if (await Pop.confirm("Delete Keep?"))
@@ -64,7 +87,16 @@ export default {
         } catch (error) {
           Pop.error(error, "Deleting Keep")
         }
+      },
+
+      async addKeepToVault() {
+        try {
+
+        } catch (error) {
+          Pop.error(error, "Adding keep to vault")
+        }
       }
+
     }
   }
 }
