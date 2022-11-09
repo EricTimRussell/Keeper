@@ -2,6 +2,10 @@
 
   <body>
     <div class="card text-light bgimg d-flex card-shadow" :style="{ backgroundImage: `url(${keeps.img})` }">
+      <div class=" text-end p-1">
+        <i @click="deleteKeep()" v-if="keeps.creatorId == profile.id" title="Delete"
+          class="mdi mdi-delete-forever selectable text-danger"></i>
+      </div>
       <div class="card-body">
       </div>
       <div class="card-footer outline d-flex justify-content-between text-shadow">
@@ -9,7 +13,7 @@
           {{ keeps.name }}
         </h3>
         <router-link :to="{ name: 'Profile', params: { id: keeps.creatorId } }">
-          <img :src=profile.picture alt="profile img" class="profile-img">
+          <img :title=keeps.creator?.name :src=profile.picture alt="profile img" class="profile-img">
         </router-link>
       </div>
     </div>
@@ -42,6 +46,8 @@
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
 import { Keep } from "../models/Keep";
+import { keepsService } from "../services/KeepsService";
+import Pop from "../utils/Pop";
 
 export default {
   props: {
@@ -50,6 +56,15 @@ export default {
   setup(props) {
     return {
       profile: computed(() => AppState.account),
+
+      async deleteKeep() {
+        try {
+          if (await Pop.confirm("Delete Keep?"))
+            await keepsService.deleteKeep(props.keeps.id)
+        } catch (error) {
+          Pop.error(error, "Deleting Keep")
+        }
+      }
     }
   }
 }

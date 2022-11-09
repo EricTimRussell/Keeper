@@ -57,7 +57,7 @@ export default {
     });
     return {
       account: computed(() => AppState.account),
-      vault: computed(() => AppState.accountVaults)
+      vault: computed(() => AppState.vaults)
     };
   },
   components: { VaultCard }

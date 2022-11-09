@@ -10,6 +10,12 @@ class AccountService {
       logger.error('HAVE YOU STARTED YOUR SERVER YET???', err)
     }
   }
+
+  async getUserProfile(id) {
+    const res = await api.get(`api/profiles/${id}`)
+    console.log(res.data);
+    AppState.activeProfile = res.data
+  }
 }
 
 export const accountService = new AccountService()

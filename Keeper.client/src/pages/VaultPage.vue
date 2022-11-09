@@ -53,14 +53,14 @@ export default {
       }
     }
 
-    // TODO add delete vault function
     onMounted(() => {
       getKeepsByVaultId();
       getVaultById();
     });
     return {
       keeps: computed(() => AppState.keeps),
-      vault: computed(() => AppState.activeVault)
+      vault: computed(() => AppState.activeVault),
+
     };
   },
   components: { VaultKeepCard }
