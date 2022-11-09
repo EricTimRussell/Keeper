@@ -40,19 +40,14 @@
 
 <script>
 import { computed } from "@vue/reactivity";
-import { useRoute } from "vue-router";
 import { AppState } from "../AppState";
 import { Keep } from "../models/Keep";
-import { keepsService } from "../services/KeepsService";
-import Pop from "../utils/Pop";
-
 
 export default {
   props: {
     keeps: { type: Keep, required: true }
   },
   setup(props) {
-    const route = useRoute();
     return {
       profile: computed(() => AppState.account),
     }

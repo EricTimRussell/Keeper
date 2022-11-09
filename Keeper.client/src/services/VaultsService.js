@@ -11,18 +11,14 @@ class VaultsService {
 
   async getMyVaults(id) {
     const res = await api.get(`api/profiles/${id}/vaults`)
-    console.log(res.data);
+    // console.log(res.data);
     AppState.vaults = res.data.map(v => new Vault(v))
   }
 
-  async getKeepsByVaultId(id) {
-    const res = await api.get(`api/vaults/${id}/keeps`)
+  async getVaultById(id) {
+    const res = await api.get(`api/vaults/${id}`)
     console.log(res.data);
-    // ANCHOR finish drawing vaultKeeps also should probably move this to vaultKeeps service
+    AppState.activeVault = res.data
   }
-
-
-
-
 }
 export const vaultsService = new VaultsService()
