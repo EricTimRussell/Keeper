@@ -48,15 +48,6 @@ export default {
       }
     }
 
-    // async function getMyVaults() {
-    //   try {
-    //     await vaultsService.getMyVaults();
-    //   }
-    //   catch (error) {
-    //     Pop.error(error, "Getting Account Vaults");
-    //   }
-    // }
-
     async function getUsersVaults() {
       try {
         await vaultsService.getUsersVaults(route.params.id)
@@ -75,7 +66,6 @@ export default {
 
     onMounted(() => {
       getUserProfile();
-      // getMyVaults();
       getUsersKeeps();
       getUsersVaults()
     });

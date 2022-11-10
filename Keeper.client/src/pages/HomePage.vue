@@ -15,7 +15,6 @@
 <script>
 import { computed } from "@vue/reactivity";
 import { onMounted } from "vue";
-import { useRoute } from "vue-router";
 import { AppState } from "../AppState";
 import KeepCard from "../components/KeepCard.vue";
 import { keepsService } from "../services/KeepsService";

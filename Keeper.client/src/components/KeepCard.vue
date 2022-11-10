@@ -53,7 +53,7 @@
                       </button>
                       <ul class="dropdown-menu">
                         <li v-for="v in vault" :key="v.id">
-                          <KeepModalDropdown :vault="v" />
+                          <KeepModalDropdown :vault="v" @click="addKeepToVault(v.id)" />
                         </li>
                       </ul>
                     </div>
@@ -74,8 +74,8 @@
 <script>
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
-import { Keep } from "../models/Keep";
 import { keepsService } from "../services/KeepsService";
+import { vaultKeepsService } from "../services/VaultKeepsService";
 import Pop from "../utils/Pop";
 import KeepModalDropdown from "./KeepModalDropdown.vue";
 
@@ -98,9 +98,13 @@ export default {
         }
       },
 
-      async addKeepToVault() {
+      async addKeepToVault(vaultId) {
         try {
-          // Finish this
+          const vaultKeep = {
+            vaultId: vaultId,
+            keepId: AppState.activeKeep.id
+          }
+          await vaultKeepsService.addKeepToVault(vaultKeep)
         }
         catch (error) {
           Pop.error(error, "Adding keep to vault");
