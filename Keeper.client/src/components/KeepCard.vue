@@ -9,7 +9,7 @@
       <div class="card-body">
       </div>
       <div class="card-footer outline d-flex justify-content-between text-shadow">
-        <h3 class="selectable" data-bs-toggle="modal" :data-bs-target="`#vaultKeep${keeps.id}`">
+        <h3 @click="getKeepById()" class="selectable" data-bs-toggle="modal" :data-bs-target="`#vaultKeep${keeps.id}`">
           {{ keeps.name }}
         </h3>
         <router-link :to="{ name: 'Profile', params: { id: keeps.creatorId } }">
@@ -49,13 +49,11 @@
                         aria-expanded="false">
                         Dropdown button
                       </button>
-                      <div>
-                        <ul class="dropdown-menu">
-                          <div class="dropdown-item" v-for="v in vault" :key="v.id">
-                            <KeepModalDropdown :vault="v" />
-                          </div>
-                        </ul>
-                      </div>
+                      <ul class="dropdown-menu">
+                        <li v-for="v in vault" :key="v.id">
+                          <KeepModalDropdown :vault="v" />
+                        </li>
+                      </ul>
                     </div>
                   </div>
                   <img :src=profile.picture alt="profile pic" :title=profile.name class="profile-img mt-5">
@@ -96,11 +94,21 @@ export default {
           Pop.error(error, "Deleting Keep");
         }
       },
+
       async addKeepToVault() {
         try {
+          // Finish this
         }
         catch (error) {
           Pop.error(error, "Adding keep to vault");
+        }
+      },
+
+      async getKeepById() {
+        try {
+          await keepsService.getKeepById(props.keeps.id)
+        } catch (error) {
+          Pop.error(error, "Get Keep By Id")
         }
       }
     };

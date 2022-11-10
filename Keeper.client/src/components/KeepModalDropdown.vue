@@ -1,5 +1,5 @@
 <template>
-  <div>{{ vault.name }}</div>
+  <p>{{ vault.name }}</p>
 </template>
 
 
