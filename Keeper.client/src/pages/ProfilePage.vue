@@ -1,7 +1,7 @@
 <template>
   <main class="container-fluid">
     <div class="row justify-content-center">
-      <div class="col-sm-12 col-md-8 d-flex justify-content-center"
+      <div class="col-sm-12 col-md-8 d-flex flex-column justify-content-end align-items-center bgimg"
         :style="{ backgroundImage: `url(${account.coverImg})` }">
         <img :src=account.picture alt="profile pic" class="profile-img">
       </div>
@@ -92,5 +92,18 @@ export default {
 
 
 <style lang="scss" scoped>
+.profile-img {
+  border-radius: 50%;
+  max-height: 12vh;
+  min-height: 12vh;
+  max-width: 12vh;
+  min-width: 12vh;
+}
 
+.bgimg {
+  height: 25vh;
+  width: 65vh;
+  background-position: center;
+  background-size: cover;
+}
 </style>

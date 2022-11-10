@@ -22,8 +22,35 @@
               <div class="col-md-6 no-pad">
                 <img :src=keeps.img alt="Keep Image" class="img-fluid">
               </div>
-              <div class="col-md-6 text-center">
-                <h1>{{ keeps.name }}</h1>
+              <div class="col-md-6 text-center d-flex flex-column justify-content-between px-5 py-1">
+                <div class="d-flex justify-content-center">
+                  <h5 class="mdi mdi-eye-outline">&nbsp{{ keeps.views }}&nbsp&nbsp</h5>
+                  <h5 class="mdi mdi-alpha-k-box-outline">&nbsp{{ keeps.kept }}</h5>
+                </div>
+                <div>
+                  <h1>{{ keeps.name }} </h1>
+                  <p class="text-start">{{ keeps.description }} Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Accusamus animi
+                    illo nulla, maxime repudiandae saepe molestiae alias excepturi odio, quo officiis repellendus,
+                    corrupti rem est vero iste non blanditiis? Odit.</p>
+                </div>
+                <!-- Add Keep to Vault -->
+                <div class="d-flex justify-content-between">
+                  <div class="my-5 d-flex gap-3">
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Dropdown button
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li v-for="v in vault" :key="v.id">
+                          <KeepModalDropdown :vault="v" />
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <img :src=profile.picture alt="profile pic" :title=profile.name class="profile-img mt-5">
+                </div>
               </div>
             </div>
           </div>
@@ -38,6 +65,7 @@
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
 import { Keep } from "../models/Keep";
+import Pop from "../utils/Pop";
 
 
 export default {
@@ -46,7 +74,15 @@ export default {
   },
   setup(props) {
     return {
-      profile: computed(() => AppState.account)
+      profile: computed(() => AppState.account),
+      vault: computed(() => AppState.vaults),
+      async removeKeepFromVault() {
+        try {
+          // Finish this 
+        } catch (error) {
+          Pop.error(error, "Removing keep from vault")
+        }
+      },
     }
   }
 }

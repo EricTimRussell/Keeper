@@ -83,7 +83,8 @@ public class KeepsRepository : BaseRepository
     UPDATE keeps SET
      name = @Name,
      description = @Description,
-     img = @Img
+     img = @Img,
+     views = @Views
     WHERE id = @Id LIMIT 1
     ;";
     keep.UpdatedAt = DateTime.Now;

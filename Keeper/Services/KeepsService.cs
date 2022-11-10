@@ -13,7 +13,7 @@ public class KeepsService
     return _kr.GetKeeps();
   }
 
-  public Keep GetById(int keepId, string userId)
+  public Keep GetById(int keepId)
   {
     Keep foundKeep = _kr.GetById(keepId);
     if (foundKeep == null)
@@ -21,7 +21,7 @@ public class KeepsService
       throw new Exception("Keep does not exist");
     }
     foundKeep.Views++;
-    UpdateKeep(foundKeep, userId);
+    _kr.UpdateKeep(foundKeep);
     return foundKeep;
   }
 
@@ -32,7 +32,7 @@ public class KeepsService
 
   internal Keep UpdateKeep(Keep keep, string userId)
   {
-    Keep originalKeep = GetById(keep.Id, userId);
+    Keep originalKeep = GetById(keep.Id);
     if (originalKeep.CreatorId != userId)
     {
       throw new Exception("This keep does not belong to you");
@@ -52,7 +52,7 @@ public class KeepsService
 
   internal void DeleteKeep(int keepId, string userId)
   {
-    var keep = GetById(keepId, userId);
+    var keep = GetById(keepId);
     if (keep.CreatorId != userId)
     {
       throw new Exception("This keep does not belong to you");

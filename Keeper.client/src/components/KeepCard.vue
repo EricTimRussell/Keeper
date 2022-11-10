@@ -9,10 +9,11 @@
       <div class="card-body">
       </div>
       <div class="card-footer outline d-flex justify-content-between text-shadow">
-        <h3 @click="getKeepById()" class="selectable" data-bs-toggle="modal" :data-bs-target="`#vaultKeep${keeps.id}`">
+        <h3 @click="getKeepById()" class="selectable" data-bs-toggle="modal"
+          :data-bs-target="`#vaultKeep${activeKeep.id}`">
           {{ keeps.name }}
         </h3>
-        <router-link :to="{ name: 'Profile', params: { id: keeps.creatorId } }">
+        <router-link :to="{ name: 'Profile', params: { id: keeps?.creatorId } }">
           <img :title=keeps.creator?.name :src=profile.picture alt="profile img" class="profile-img">
         </router-link>
       </div>
@@ -20,7 +21,8 @@
   </body>
 
   <!-- View Keep Modal -->
-  <div class="modal fade" :id="`vaultKeep${keeps.id}`" tabindex="-1" aria-labelledby="Vault Keep" aria-hidden="true">
+  <div class="modal fade" :id="`vaultKeep${activeKeep.id}`" tabindex="-1" aria-labelledby="Vault Keep"
+    aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
       <div class="modal-content">
         <div class="no-pad modal-body">
@@ -31,8 +33,8 @@
               </div>
               <div class="col-md-6 text-center d-flex flex-column justify-content-between px-5 py-1">
                 <div class="d-flex justify-content-center">
-                  <h5 class="mdi mdi-eye-outline">&nbsp{{ keeps.views }}&nbsp&nbsp</h5>
-                  <h5 class="mdi mdi-alpha-k-box-outline">&nbsp{{ keeps.kept }}</h5>
+                  <h5 class="mdi mdi-eye-outline">&nbsp{{ activeKeep.views }}&nbsp&nbsp</h5>
+                  <h5 class="mdi mdi-alpha-k-box-outline">&nbsp{{ activeKeep.kept }}</h5>
                 </div>
                 <div>
                   <h1>{{ keeps.name }} </h1>
@@ -79,12 +81,13 @@ import KeepModalDropdown from "./KeepModalDropdown.vue";
 
 export default {
   props: {
-    keeps: { type: Keep, required: true }
+    keeps: { type: Object, required: true }
   },
   setup(props) {
     return {
       profile: computed(() => AppState.account),
       vault: computed(() => AppState.vaults),
+      activeKeep: computed(() => AppState.activeKeep),
       async deleteKeep() {
         try {
           if (await Pop.confirm("Delete Keep?"))
@@ -133,6 +136,7 @@ export default {
 .profile-img {
   border-radius: 50%;
   max-height: 5vh;
+  min-width: 5vh;
 }
 
 .card-shadow {
