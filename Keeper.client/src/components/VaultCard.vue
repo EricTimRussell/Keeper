@@ -1,18 +1,23 @@
 <template>
-  <div class="card text-light bgimg d-flex card-shadow" :style="{ backgroundImage: `url(${vault.img})` }">
-    <i @click="deleteVault()" title="Delete Vault" v-if="vault.creatorId == profile.id"
-      class="mdi mdi-delete-forever text-danger selectable text-end p-2"></i>
-    <div class="card-body">
+
+  <body>
+    <div class="card bgimg d-flex card-shadow" :style="{ backgroundImage: `url(${vault.img})` }">
+      <div class="text-end">
+        <i @click="deleteVault()" title="Delete Vault" v-if="vault.creatorId == profile.id"
+          class="mdi mdi-delete-forever text-danger selectable"></i>
+      </div>
+      <div class="card-body">
+      </div>
+      <div class="card-footer outline d-flex text-shadow justify-content-between">
+        <router-link v-if="vault.id" :to="{ name: 'Vault', params: { id: vault.id } }">
+          <h3 class="selectable text-light">
+            {{ vault.name }}
+          </h3>
+        </router-link>
+        <i class="mdi mdi-lock text-light fs-5" title="Private Vault" v-if="vault.isPrivate"></i>
+      </div>
     </div>
-    <div class="card-footer outline d-flex text-shadow justify-content-between">
-      <router-link v-if="vault.id" :to="{ name: 'Vault', params: { id: vault.id } }">
-        <h3 class="selectable">
-          {{ vault.name }}
-        </h3>
-      </router-link>
-      <i class="mdi mdi-lock text-light fs-5" v-if="vault.isPrivate"></i>
-    </div>
-  </div>
+  </body>
 </template>
 
 
@@ -31,7 +36,6 @@ export default {
 
     return {
       profile: computed(() => AppState.account),
-      // TODO update page when vault is deleted
       async deleteVault() {
         try {
           if (await Pop.confirm("Delete Vault?"))
@@ -48,6 +52,11 @@ export default {
 
 
 <style lang="scss" scoped>
+body {
+  text-transform: uppercase;
+  letter-spacing: 7px;
+}
+
 .bgimg {
   height: 35vh;
   max-width: 45vh;
@@ -62,9 +71,5 @@ export default {
 
 .card-shadow {
   box-shadow: 0 2px 10px -1px #00000033, 0 5px 10px 0 #00000070;
-}
-
-.text-shadow {
-  text-shadow: 1px 1px 5px #ff00e1, 0 0 1em #8888f7, 0 0 0.2em #ffffff;
 }
 </style>

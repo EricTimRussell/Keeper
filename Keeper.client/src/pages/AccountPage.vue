@@ -129,7 +129,6 @@ export default {
 
 .bgimg {
   height: 25vh;
-  width: 65vh;
   background-position: center;
   background-size: cover;
 }

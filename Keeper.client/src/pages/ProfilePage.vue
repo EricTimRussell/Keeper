@@ -1,7 +1,7 @@
 <template>
   <main class="container-fluid">
     <div class="row justify-content-center">
-      <div class="col-sm-12 col-md-8 d-flex flex-column justify-content-end align-items-center bgimg"
+      <div class="col-sm-12 col-md-8 d-flex flex-column justify-content-end align-items-center bgimg my-3"
         :style="{ backgroundImage: `url(${account.coverImg})` }">
         <img :src=account.picture alt="profile pic" class="profile-img">
       </div>
@@ -11,11 +11,15 @@
       <div class="col-12 d-flex justify-content-center">
         <h6>{{ vault.length }} Vaults | {{ keeps.length }} Keeps</h6>
       </div>
-      <h3>Vaults</h3>
+      <div>
+        <h1>Vaults</h1>
+      </div>
       <div class="col-sm-6 col-md-3 my-4" v-for="v in vault" :key="v.id">
         <VaultCard :vault="v" />
       </div>
-      <h3>Keeps</h3>
+      <div class="bg-light elevation-2 my-3">
+        <h1>Keeps</h1>
+      </div>
       <div class="col-sm-6 col-md-3 my-4" v-for="k in keeps" :key="k.id">
         <KeepCard :keeps="k" />
       </div>
@@ -92,7 +96,6 @@ export default {
 
 .bgimg {
   height: 25vh;
-  width: 65vh;
   background-position: center;
   background-size: cover;
 }

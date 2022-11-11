@@ -4,11 +4,13 @@ public class VaultKeepsService
 {
   private readonly VaultKeepsRepository _vkr;
   private readonly VaultsRepository _vr;
+  private readonly KeepsRepository _kr;
 
-  public VaultKeepsService(VaultKeepsRepository vkr, VaultsRepository vr)
+  public VaultKeepsService(VaultKeepsRepository vkr, VaultsRepository vr, KeepsRepository kr)
   {
     _vkr = vkr;
     _vr = vr;
+    _kr = kr;
   }
 
   internal VaultKeep AddKeepToVault(VaultKeep vaultKeepData, string userId)

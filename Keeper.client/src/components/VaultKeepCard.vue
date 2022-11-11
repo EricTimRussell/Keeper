@@ -9,7 +9,7 @@
       <div class="card-body">
       </div>
       <div class="card-footer outline d-flex justify-content-between text-shadow">
-        <h3 class="selectable" data-bs-toggle="modal" :data-bs-target="`#vaultKeep${keeps.id}`">
+        <h3 @click="getKeepById()" class="selectable" data-bs-toggle="modal" :data-bs-target="`#vaultKeep${keeps.id}`">
           {{ keeps.name }}
         </h3>
       </div>
@@ -38,21 +38,7 @@
                     illo nulla, maxime repudiandae saepe molestiae alias excepturi odio, quo officiis repellendus,
                     corrupti rem est vero iste non blanditiis? Odit.</p>
                 </div>
-                <!-- Add Keep to Vault -->
-                <div class="d-flex justify-content-between">
-                  <div class="my-5 d-flex gap-3">
-                    <div class="dropdown">
-                      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Dropdown button
-                      </button>
-                      <ul class="dropdown-menu">
-                        <li v-for="v in vault" :key="v.id">
-                          <KeepModalDropdown :vault="v" />
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+                <div class="d-flex justify-content-end">
                   <img :src=profile.picture alt="profile pic" :title=profile.name class="profile-img mt-5">
                 </div>
               </div>
@@ -69,7 +55,7 @@
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
 import { Keep } from "../models/Keep";
-import { VaultKeep } from "../models/VaultKeep";
+import { keepsService } from "../services/KeepsService";
 import { vaultKeepsService } from "../services/VaultKeepsService";
 import Pop from "../utils/Pop";
 
@@ -77,7 +63,6 @@ import Pop from "../utils/Pop";
 export default {
   props: {
     keeps: { type: Keep, required: true },
-
   },
   setup(props) {
     return {
@@ -86,21 +71,38 @@ export default {
       // ANCHOR do not know how to pass down vaultkeep id
       async removeKeepFromVault() {
         try {
-          debugger
           await vaultKeepsService.removeKeepFromVault()
         } catch (error) {
           Pop.error(error, "Removing keep from vault")
         }
       },
-    }
+      async getKeepById() {
+        try {
+          await keepsService.getKeepById(props.keeps.id)
+        } catch (error) {
+          Pop.error(error, "Get Keep By Id")
+        }
+      }
+    };
   }
 }
 </script>
 
 
 <style lang="scss" scoped>
+body {
+  letter-spacing: -1px;
+  text-transform: lowercase;
+}
+
 .no-pad {
   padding: 0%;
+}
+
+.profile-img {
+  border-radius: 50%;
+  max-height: 5vh;
+  min-width: 5vh;
 }
 
 .bgimg {
@@ -116,9 +118,5 @@ export default {
 
 .card-shadow {
   box-shadow: 0 2px 10px -1px #00000033, 0 5px 10px 0 #00000070;
-}
-
-.text-shadow {
-  text-shadow: 1px 1px 5px #ff00e1, 0 0 1em #8888f7, 0 0 0.2em #ffffff;
 }
 </style>

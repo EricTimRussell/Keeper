@@ -37,7 +37,7 @@
                   <h5 class="mdi mdi-alpha-k-box-outline">&nbsp{{ activeKeep.kept }}</h5>
                 </div>
                 <div>
-                  <h1>{{ activeKeep.name }} </h1>
+                  <h1 class="lower-case">{{ activeKeep.name }} </h1>
                   <p class="text-start">{{ activeKeep.description }} Lorem ipsum dolor sit amet consectetur adipisicing
                     elit.
                     Accusamus animi
@@ -54,7 +54,7 @@
                       </button>
                       <ul class="dropdown-menu">
                         <li v-for="v in vaults" :key="v.id">
-                          <KeepModalDropdown :vaults="v" @click="addKeepToVault(v.id)" />
+                          <KeepModalDropdown :vaults="v" @click="addKeepToVault(v.id)" class="p-1" />
                         </li>
                       </ul>
                     </div>
@@ -131,6 +131,15 @@ export default {
 
 
 <style lang="scss" scoped>
+body {
+  letter-spacing: -1px;
+  text-transform: lowercase;
+}
+
+.lower-case {
+  text-transform: lowercase;
+}
+
 .bgimg {
   height: 35vh;
   background-position: center;
@@ -150,9 +159,5 @@ export default {
 
 .card-shadow {
   box-shadow: 0 2px 10px -1px #00000033, 0 5px 10px 0 #00000070;
-}
-
-.text-shadow {
-  text-shadow: 1px 1px 5px #ff00e1, 0 0 1em #8888f7, 0 0 0.2em #ffffff;
 }
 </style>

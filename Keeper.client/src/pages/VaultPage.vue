@@ -1,12 +1,11 @@
 <template>
   <main class="container-fluid">
     <div class="row justify-content-center  my-3">
-      <div class="card col-md-3 text-shadow bgimg text-light" :style="{ backgroundImage: `url(${vault.img})` }">
+      <div class="card col-md-3 text-shadow bgimg text-light" :style="{ backgroundImage: `url(${vault?.img})` }">
         <div class="card-body text-center d-flex flex-column justify-content-end no-pad">
           <h1 class="caps">{{ vault?.name }}</h1>
           <h6><i>By {{ vault.creator?.name }}</i></h6>
         </div>
-        <i class="mdi mdi-dots-horizontal fs-4 selectable text-end" title="Vault Options"></i>
       </div>
     </div>
     <div class="row justify-content-center">
@@ -24,7 +23,7 @@
 
 
 <script>
-import { computed, onMounted, watchEffect } from "vue";
+import { computed, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { AppState } from "../AppState";
 import VaultKeepCard from "../components/VaultKeepCard.vue";
@@ -100,9 +99,5 @@ export default {
 
 .card-shadow {
   box-shadow: 0 2px 10px -1px #00000033, 0 5px 10px 0 #00000070;
-}
-
-.text-shadow {
-  text-shadow: 1px 1px 5px #ff00e1, 0 0 1em #8888f7, 0 0 0.2em #ffffff;
 }
 </style>

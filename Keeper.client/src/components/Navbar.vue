@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-light px-3 height">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-light px-3 height elevation-2">
     <div class="container-fluid">
       <router-link class="navbar-brand" :to="{ name: 'Home' }">
         <button class="btn btn-secondary">Home</button>

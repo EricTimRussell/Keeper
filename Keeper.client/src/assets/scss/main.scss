@@ -4,7 +4,7 @@
 @import "./_utilities.scss";
 @import "./loaders.scss";
 
-body{
+body {
   overscroll-behavior: none;
 }
 
@@ -13,10 +13,15 @@ body{
   flex-direction: column;
   min-height: 100vh;
   background-color: var(--body-bg);
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 main {
   flex-grow: 1;
+}
+
+.text-shadow {
+  text-shadow: 1px 1px 5px #ff00e1, 0 0 1em #8888f7, 0 0 0.2em #ffffff;
 }
 
 a {
@@ -30,6 +35,7 @@ select {
     &:valid {
       border: 1px solid $success;
     }
+
     &:invalid {
       border: 1px solid $danger;
     }
