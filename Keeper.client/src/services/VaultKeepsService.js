@@ -13,6 +13,7 @@ class VaultKeepsService {
   async addKeepToVault(vaultKeep) {
     const res = await api.post('api/vaultkeeps', vaultKeep)
     AppState.vaultKeeps.push(new VaultKeep(res.data))
+    AppState.activeKeep.kept++
   }
 
   async removeKeepFromVault(keepId) {

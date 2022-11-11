@@ -5,12 +5,14 @@ public class VaultKeepsService
   private readonly VaultKeepsRepository _vkr;
   private readonly VaultsRepository _vr;
   private readonly KeepsRepository _kr;
+  private readonly KeepsService _ks;
 
-  public VaultKeepsService(VaultKeepsRepository vkr, VaultsRepository vr, KeepsRepository kr)
+  public VaultKeepsService(VaultKeepsRepository vkr, VaultsRepository vr, KeepsRepository kr, KeepsService ks)
   {
     _vkr = vkr;
     _vr = vr;
     _kr = kr;
+    _ks = ks;
   }
 
   internal VaultKeep AddKeepToVault(VaultKeep vaultKeepData, string userId)
@@ -20,7 +22,14 @@ public class VaultKeepsService
     {
       throw new Exception("Vault does not belong to you");
     }
-    return _vkr.AddKeepToVault(vaultKeepData);
+    var vaultKeep = _vkr.AddKeepToVault(vaultKeepData);
+    var keep = _ks.GetById(vaultKeepData.KeepId);
+    keep.Kept++;
+    keep = _kr.UpdateKeep(keep);
+    // I need to go and get the original keep that I'm trying to save
+    // after finding the keep, increment its views
+    // save the change in the database! update the keep in the repository
+    return vaultKeep;
   }
 
   internal List<KeptKeeps> GetKeepsInVault(int vaultId, string userId)

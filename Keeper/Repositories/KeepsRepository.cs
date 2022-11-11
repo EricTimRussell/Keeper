@@ -84,7 +84,8 @@ public class KeepsRepository : BaseRepository
      name = @Name,
      description = @Description,
      img = @Img,
-     views = @Views
+     views = @Views,
+     kept = @Kept
     WHERE id = @Id LIMIT 1
     ;";
     keep.UpdatedAt = DateTime.Now;
@@ -111,4 +112,15 @@ public class KeepsRepository : BaseRepository
     return;
   }
 
+  internal KeptKeeps GetKeptKeepById(int id)
+  {
+    var sql = @"
+    SELECT
+    *
+    FROM keeps
+    WHERE id = @id
+    ;";
+
+    return _db.Query<KeptKeeps>(sql, new { id }).FirstOrDefault();
+  }
 }

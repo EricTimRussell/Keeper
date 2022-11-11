@@ -78,6 +78,7 @@
 <script>
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
+import { Keep } from "../models/Keep";
 import { keepsService } from "../services/KeepsService";
 import { vaultKeepsService } from "../services/VaultKeepsService";
 import Pop from "../utils/Pop";
@@ -85,7 +86,7 @@ import KeepModalDropdown from "./KeepModalDropdown.vue";
 
 export default {
   props: {
-    keeps: { type: Object, required: true }
+    keeps: { type: Keep, required: true }
   },
   setup(props) {
     return {

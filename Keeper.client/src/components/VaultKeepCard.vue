@@ -2,10 +2,6 @@
 
   <body>
     <div class="card text-light bgimg d-flex card-shadow" :style="{ backgroundImage: `url(${keeps.img})` }">
-      <div class=" text-end p-1">
-        <i @click="removeKeepFromVault()" v-if="keeps.creatorId == profile.id" title="Delete"
-          class="mdi mdi-delete-forever selectable text-danger"></i>
-      </div>
       <div class="card-body">
       </div>
       <div class="card-footer outline d-flex justify-content-between text-shadow">
@@ -38,6 +34,10 @@
                     illo nulla, maxime repudiandae saepe molestiae alias excepturi odio, quo officiis repellendus,
                     corrupti rem est vero iste non blanditiis? Odit.</p>
                 </div>
+                <div class=" text-end p-1">
+                  <i @click="removeKeepFromVault()" v-if="keeps.creatorId == profile.id" title="Delete"
+                    class="mdi mdi-delete-forever selectable text-danger"></i>
+                </div>
                 <div class="d-flex justify-content-end">
                   <img :src=profile.picture alt="profile pic" :title=profile.name class="profile-img mt-5">
                 </div>
@@ -62,13 +62,12 @@ import Pop from "../utils/Pop";
 
 export default {
   props: {
-    keeps: { type: Keep, required: true },
+    keeps: { type: Keep, required: true }
   },
   setup(props) {
     return {
       profile: computed(() => AppState.account),
       vault: computed(() => AppState.vaults),
-      // ANCHOR do not know how to pass down vaultkeep id
       async removeKeepFromVault() {
         try {
           await vaultKeepsService.removeKeepFromVault()
@@ -81,6 +80,13 @@ export default {
           await keepsService.getKeepById(props.keeps.id)
         } catch (error) {
           Pop.error(error, "Get Keep By Id")
+        }
+      },
+      async setActiveVaultKeep() {
+        try {
+          await vaultKeepsService.setActiveVaultKeep()
+        } catch (error) {
+          Pop.error(error, "set active vaultKeep")
         }
       }
     };

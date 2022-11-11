@@ -25,6 +25,16 @@ public class KeepsService
     return foundKeep;
   }
 
+  public KeptKeeps getKeptKeepById(int id)
+  {
+    KeptKeeps keep = _kr.GetKeptKeepById(id);
+    if (keep == null)
+    {
+      throw new Exception("KeptKeep not found");
+    }
+    return keep;
+  }
+
   internal Keep CreateKeep(Keep data)
   {
     return _kr.CreateKeep(data);
