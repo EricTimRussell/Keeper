@@ -53,6 +53,7 @@
 
 <script>
 import { computed } from "@vue/reactivity";
+import { Modal } from "bootstrap";
 import { AppState } from "../AppState";
 import { Keep } from "../models/Keep";
 import { keepsService } from "../services/KeepsService";
@@ -71,8 +72,10 @@ export default {
       activeKeep: computed(() => AppState.activeKeep),
       async removeKeepFromVault(vaultKeepId) {
         try {
-          // debugger
-          await vaultKeepsService.removeKeepFromVault(vaultKeepId)
+          if (await Pop.confirm("Remove Keep From Vault?")) {
+            await vaultKeepsService.removeKeepFromVault(vaultKeepId)
+            Modal.getOrCreateInstance('#vaultKeep').hide()
+          }
         } catch (error) {
           Pop.error(error, "Removing keep from vault")
         }
