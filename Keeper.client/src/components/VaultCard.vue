@@ -5,7 +5,7 @@
     <div class="card-body">
     </div>
     <div class="card-footer outline d-flex text-shadow justify-content-between">
-      <router-link :to="{ name: 'Vault', params: { id: vault.id } }">
+      <router-link v-if="vault.id" :to="{ name: 'Vault', params: { id: vault.id } }">
         <h3 class="selectable">
           {{ vault.name }}
         </h3>
@@ -28,6 +28,7 @@ export default {
     vault: { type: Vault, required: true }
   },
   setup(props) {
+
     return {
       profile: computed(() => AppState.account),
       // TODO update page when vault is deleted
@@ -39,6 +40,7 @@ export default {
           Pop.error(error, "Deleting Vault")
         }
       }
+
     }
   }
 }

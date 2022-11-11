@@ -24,22 +24,24 @@
 
 
 <script>
-import { computed, onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { computed, onMounted, watchEffect } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { AppState } from "../AppState";
 import VaultKeepCard from "../components/VaultKeepCard.vue";
 import { vaultKeepsService } from "../services/VaultKeepsService";
 import { vaultsService } from "../services/VaultsService";
+import { logger } from "../utils/Logger";
 import Pop from "../utils/Pop";
 
 export default {
   setup() {
-    const route = useRoute({});
-
+    const route = useRoute();
+    const router = useRouter();
     async function getVaultById() {
       try {
         await vaultsService.getVaultById(route.params.id);
       } catch (error) {
+        logger.error(router.push({ name: 'Home' }))
         Pop.error(error, "Get Vault By Id")
       }
     }
@@ -57,10 +59,11 @@ export default {
       getKeepsByVaultId();
       getVaultById();
     });
-    return {
-      keeps: computed(() => AppState.keeps),
-      vault: computed(() => AppState.activeVault),
 
+    return {
+      keeps: computed(() => AppState.vaultKeeps),
+      vault: computed(() => AppState.activeVault),
+      account: computed(() => AppState.account)
     };
   },
   components: { VaultKeepCard }

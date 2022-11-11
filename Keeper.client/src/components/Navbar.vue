@@ -4,7 +4,7 @@
       <router-link class="navbar-brand" :to="{ name: 'Home' }">
         <button class="btn btn-secondary">Home</button>
       </router-link>
-      <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+      <div v-if="account.id" class="btn-group" role="group" aria-label="Button group with nested dropdown">
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-outline dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             Create
@@ -32,10 +32,14 @@
 
 
 <script>
+import { computed } from "@vue/reactivity";
+import { AppState } from "../AppState";
 import Login from './Login.vue'
 export default {
   setup() {
-    return {}
+    return {
+      account: computed(() => AppState.account)
+    }
   },
   components: { Login }
 }

@@ -7,7 +7,7 @@ class VaultKeepsService {
   async getKeepsByVaultId(id) {
     const res = await api.get(`api/vaults/${id}/keeps`)
     console.log(res.data);
-    AppState.keeps = res.data.map(k => new Keep(k))
+    AppState.vaultKeeps = res.data.map(k => new Keep(k))
   }
 
   async addKeepToVault(vaultKeep) {
@@ -15,5 +15,9 @@ class VaultKeepsService {
     AppState.vaultKeeps.push(new VaultKeep(res.data))
   }
 
+  async removeKeepFromVault(keepId) {
+    const res = await api.delete(`api/vaultkeeps/${keepId}`)
+    AppState.vaultKeeps.filter(v => v.id != keepId)
+  }
 }
 export const vaultKeepsService = new VaultKeepsService()

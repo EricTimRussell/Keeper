@@ -14,7 +14,7 @@ class AccountService {
 
   async getUserProfile(id) {
     const res = await api.get(`api/profiles/${id}`)
-    console.log(res.data);
+    // console.log(res.data);
     AppState.activeProfile = res.data
   }
   async editAccount(formData) {

@@ -13,8 +13,8 @@
           :data-bs-target="`#vaultKeep${activeKeep.id}`">
           {{ keeps.name }}
         </h3>
-        <router-link :to="{ name: 'Profile', params: { id: keeps?.creatorId } }">
-          <img :title=keeps.creator?.name :src=profile.picture alt="profile img" class="profile-img">
+        <router-link :to="{ name: 'Profile', params: { id: keeps.creatorId } }">
+          <img :title=profile.name :src=profile.picture alt="profile img" class="profile-img">
         </router-link>
       </div>
     </div>
@@ -29,7 +29,7 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-md-6 no-pad">
-                <img :src=keeps.img alt="Keep Image" class="img-fluid">
+                <img :src=activeKeep.img alt="Keep Image" class="img-fluid">
               </div>
               <div class="col-md-6 text-center d-flex flex-column justify-content-between px-5 py-1">
                 <div class="d-flex justify-content-center">
@@ -37,8 +37,9 @@
                   <h5 class="mdi mdi-alpha-k-box-outline">&nbsp{{ activeKeep.kept }}</h5>
                 </div>
                 <div>
-                  <h1>{{ keeps.name }} </h1>
-                  <p class="text-start">{{ keeps.description }} Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  <h1>{{ activeKeep.name }} </h1>
+                  <p class="text-start">{{ activeKeep.description }} Lorem ipsum dolor sit amet consectetur adipisicing
+                    elit.
                     Accusamus animi
                     illo nulla, maxime repudiandae saepe molestiae alias excepturi odio, quo officiis repellendus,
                     corrupti rem est vero iste non blanditiis? Odit.</p>
@@ -46,19 +47,22 @@
                 <!-- Add Keep to Vault -->
                 <div class="d-flex justify-content-between">
                   <div class="my-5 d-flex gap-3">
-                    <div class="dropdown">
+                    <div class="dropdown" v-if="profile.id">
                       <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         Dropdown button
                       </button>
                       <ul class="dropdown-menu">
-                        <li v-for="v in vault" :key="v.id">
-                          <KeepModalDropdown :vault="v" @click="addKeepToVault(v.id)" />
+                        <li v-for="v in vaults" :key="v.id">
+                          <KeepModalDropdown :vaults="v" @click="addKeepToVault(v.id)" />
                         </li>
                       </ul>
                     </div>
                   </div>
-                  <img :src=profile.picture alt="profile pic" :title=profile.name class="profile-img mt-5">
+                  <router-link :to="{ name: 'Profile', params: { id: keeps.creatorId } }">
+                    <img :src=activeKeep.creator?.picture alt="profile picture" :title=activeKeep.creator?.name
+                      class="profile-img mt-5">
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -87,6 +91,7 @@ export default {
     return {
       profile: computed(() => AppState.account),
       vault: computed(() => AppState.vaults),
+      vaults: computed(() => AppState.activeVault),
       activeKeep: computed(() => AppState.activeKeep),
       async deleteKeep() {
         try {

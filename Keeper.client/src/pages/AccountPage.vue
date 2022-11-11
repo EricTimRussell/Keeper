@@ -101,7 +101,7 @@ export default {
     return {
       editable,
       account: computed(() => AppState.account),
-      vault: computed(() => AppState.vaults),
+      vault: computed(() => AppState.activeVault),
 
       async editAccount() {
         try {

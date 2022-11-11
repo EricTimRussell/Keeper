@@ -2,6 +2,10 @@
 
   <body>
     <div class="card text-light bgimg d-flex card-shadow" :style="{ backgroundImage: `url(${keeps.img})` }">
+      <div class=" text-end p-1">
+        <i @click="removeKeepFromVault()" v-if="keeps.creatorId == profile.id" title="Delete"
+          class="mdi mdi-delete-forever selectable text-danger"></i>
+      </div>
       <div class="card-body">
       </div>
       <div class="card-footer outline d-flex justify-content-between text-shadow">
@@ -65,20 +69,25 @@
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
 import { Keep } from "../models/Keep";
+import { VaultKeep } from "../models/VaultKeep";
+import { vaultKeepsService } from "../services/VaultKeepsService";
 import Pop from "../utils/Pop";
 
 
 export default {
   props: {
-    keeps: { type: Keep, required: true }
+    keeps: { type: Keep, required: true },
+
   },
   setup(props) {
     return {
       profile: computed(() => AppState.account),
       vault: computed(() => AppState.vaults),
+      // ANCHOR do not know how to pass down vaultkeep id
       async removeKeepFromVault() {
         try {
-          // Finish this 
+          debugger
+          await vaultKeepsService.removeKeepFromVault()
         } catch (error) {
           Pop.error(error, "Removing keep from vault")
         }

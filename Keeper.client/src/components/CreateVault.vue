@@ -8,6 +8,11 @@
       <input v-model="editable.img" type="url" class="form-control" id="vaultImg" placeholder="Image">
       <label for="vaultImage">Image Url..</label>
     </div>
+    <div class="input-group my-2">
+      <input v-model="editable.isPrivate" class="form-check-input selectable" type="checkbox"
+        aria-label="Checkbox for following text input">
+      <p class="px-1">Private?</p>
+    </div>
     <div class="my-3">
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       <button type="submit" class="btn btn-primary">Submit</button>

@@ -1,5 +1,7 @@
 import { AppState } from "../AppState"
 import { Vault } from "../models/Vault"
+import { router } from "../router"
+import Pop from "../utils/Pop"
 import { api } from "./AxiosService"
 
 class VaultsService {
@@ -12,13 +14,13 @@ class VaultsService {
   async getMyVaults() {
     const res = await api.get(`account/vaults`)
     // console.log(res.data);
-    AppState.vaults = res.data.map(v => new Vault(v))
+    AppState.activeVault = res.data.map(v => new Vault(v))
   }
 
   async getUsersVaults(id) {
     const res = await api.get(`api/profiles/${id}/vaults`)
     console.log(res.data);
-    AppState.vaults = res.data.map(v => new Vault(v))
+    AppState.activeVault = res.data.map(v => new Vault(v))
   }
 
   async getVaultById(id) {
@@ -29,7 +31,7 @@ class VaultsService {
 
   async deleteVault(vaultId) {
     const res = await api.delete(`api/vaults/${vaultId}`)
-    AppState.vaults = AppState.vaults.filter(v => v.vaultId != vaultId)
+    AppState.activeVault = AppState.activeVault.filter(v => v.id != vaultId)
   }
 }
 export const vaultsService = new VaultsService()

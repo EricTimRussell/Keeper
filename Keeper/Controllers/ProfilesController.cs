@@ -1,6 +1,5 @@
 namespace Keeper.Controllers;
 
-// [Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class ProfilesController : ControllerBase
@@ -19,11 +18,10 @@ public class ProfilesController : ControllerBase
   }
 
   [HttpGet("{profileId}")]
-  public async Task<ActionResult<Profile>> GetProfile(string profileId)
+  public ActionResult<Profile> GetProfile(string profileId)
   {
     try
     {
-      Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
       Profile profile = _ps.GetProfile(profileId);
       return Ok(profile);
     }
@@ -34,11 +32,10 @@ public class ProfilesController : ControllerBase
   }
 
   [HttpGet("{profileId}/keeps")]
-  public async Task<ActionResult<List<Keep>>> GetKeepByProfile(string profileId)
+  public ActionResult<List<Keep>> GetKeepByProfile(string profileId)
   {
     try
     {
-      Account userInfo = await _a0.GetUserInfoAsync<Account>(HttpContext);
       var keeps = _ks.GetKeepByProfile(profileId);
       return Ok(keeps);
     }
