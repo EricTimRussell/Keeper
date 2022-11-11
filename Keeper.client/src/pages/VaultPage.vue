@@ -62,7 +62,7 @@ export default {
     return {
       keeps: computed(() => AppState.vaultKeeps),
       vault: computed(() => AppState.activeVault),
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
     };
   },
   components: { VaultKeepCard }

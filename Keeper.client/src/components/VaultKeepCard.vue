@@ -35,7 +35,7 @@
                     corrupti rem est vero iste non blanditiis? Odit.</p>
                 </div>
                 <div class=" text-end p-1">
-                  <i @click="removeKeepFromVault()" v-if="keeps.creatorId == profile.id" title="Delete"
+                  <i @click="removeKeepFromVault(keeps.vaultKeepId)" v-if="keeps.creatorId == profile.id" title="Delete"
                     class="mdi mdi-delete-forever selectable text-danger"></i>
                 </div>
                 <div class="d-flex justify-content-end">
@@ -68,9 +68,11 @@ export default {
     return {
       profile: computed(() => AppState.account),
       vault: computed(() => AppState.vaults),
-      async removeKeepFromVault() {
+      activeKeep: computed(() => AppState.activeKeep),
+      async removeKeepFromVault(vaultKeepId) {
         try {
-          await vaultKeepsService.removeKeepFromVault()
+          // debugger
+          await vaultKeepsService.removeKeepFromVault(vaultKeepId)
         } catch (error) {
           Pop.error(error, "Removing keep from vault")
         }
@@ -82,14 +84,7 @@ export default {
           Pop.error(error, "Get Keep By Id")
         }
       },
-      async setActiveVaultKeep() {
-        try {
-          await vaultKeepsService.setActiveVaultKeep()
-        } catch (error) {
-          Pop.error(error, "set active vaultKeep")
-        }
-      }
-    };
+    }
   }
 }
 </script>

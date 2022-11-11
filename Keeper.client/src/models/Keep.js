@@ -9,5 +9,6 @@ export class Keep {
     this.views = data.views
     this.kept = data.kept
     this.tags = data.tags
+    this.vaultKeepId = data.vaultKeepId
   }
 }
