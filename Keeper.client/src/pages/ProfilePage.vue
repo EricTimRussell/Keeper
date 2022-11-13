@@ -5,7 +5,7 @@
         :style="{ backgroundImage: `url(${account.coverImg})` }">
         <img :src=account.picture alt="profile pic" class="profile-img">
       </div>
-      <div class="col-12 d-flex justify-content-center">
+      <div class="col-12 d-flex justify-content-center my-5">
         <h1>{{ account.name }}</h1>
       </div>
       <div class="col-12 d-flex justify-content-center bg-light round">
@@ -98,11 +98,15 @@ export default {
   min-height: 12vh;
   max-width: 12vh;
   min-width: 12vh;
+  object-fit: cover;
+  position: relative;
+  top: 3.5rem;
 }
 
 .bgimg {
   height: 25vh;
   background-position: center;
   background-size: cover;
+  border-radius: 1rem;
 }
 </style>

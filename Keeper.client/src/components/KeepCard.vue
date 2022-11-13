@@ -168,8 +168,11 @@ body {
 
 .profile-img {
   border-radius: 50%;
-  max-height: 5vh;
   min-width: 5vh;
+  max-width: 5vh;
+  min-height: 5vh;
+  max-height: 5vh;
+  object-fit: cover;
 }
 
 .card-shadow {

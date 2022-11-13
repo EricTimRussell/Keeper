@@ -5,11 +5,11 @@
         :style="{ backgroundImage: `url(${account.coverImg})` }">
         <img :src=account.picture alt="profile pic" class="profile-img">
       </div>
-      <div class="col-12 text-center">
+      <div class="col-12 text-center pt-4">
         <i data-bs-toggle="modal" data-bs-target="#editAccount" title="Edit Account"
           class="mdi mdi-cog selectable text-dark"></i>
       </div>
-      <div class="col-12 d-flex justify-content-center">
+      <div class="col-12 d-flex justify-content-center my-1">
         <h1>{{ account.name }}</h1>
       </div>
       <div class="col-md-2 d-flex justify-content-center bg-light round">
@@ -136,6 +136,9 @@ export default {
   min-height: 12vh;
   max-width: 12vh;
   min-width: 12vh;
+  object-fit: cover;
+  position: relative;
+  top: 3.5rem;
 }
 
 .bgimg {

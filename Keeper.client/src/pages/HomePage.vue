@@ -47,5 +47,14 @@ export default {
   margin-left: 15rem;
   margin-right: 15rem;
 }
+
+.bricks {
+  columns: 4;
+
+  img.photo {
+    width: 192px;
+    margin-top: 1.5rem
+  }
+}
 </style>
 
