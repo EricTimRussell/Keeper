@@ -36,6 +36,7 @@ export default {
 
     return {
       profile: computed(() => AppState.account),
+      activeVault: computed(() => AppState.activeVault),
       async deleteVault() {
         try {
           if (await Pop.confirm("Delete Vault?"))

@@ -1,7 +1,5 @@
 import { AppState } from "../AppState"
 import { Vault } from "../models/Vault"
-import { router } from "../router"
-import Pop from "../utils/Pop"
 import { api } from "./AxiosService"
 
 class VaultsService {
@@ -14,7 +12,7 @@ class VaultsService {
   async getMyVaults() {
     const res = await api.get(`account/vaults`)
     // console.log(res.data);
-    AppState.activeVault = res.data.map(v => new Vault(v))
+    AppState.accountVaults = res.data.map(v => new Vault(v))
   }
 
   async getUsersVaults(id) {

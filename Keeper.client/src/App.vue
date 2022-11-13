@@ -53,12 +53,14 @@ import Navbar from './components/Navbar.vue'
 export default {
   setup() {
     return {
+      AppState,
       profile: computed(() => AppState.account),
       keeps: computed(() => AppState.keeps)
     }
   },
   components: { Navbar, CreateKeep, CreateVault }
 }
+
 </script>
 <style lang="scss">
 .no-pad {

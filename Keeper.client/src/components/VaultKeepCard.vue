@@ -34,12 +34,12 @@
                     illo nulla, maxime repudiandae saepe molestiae alias excepturi odio, quo officiis repellendus,
                     corrupti rem est vero iste non blanditiis? Odit.</p>
                 </div>
-                <div class=" text-end p-1">
-                  <i @click="removeKeepFromVault(keeps.vaultKeepId)" v-if="keeps.creatorId == profile.id" title="Delete"
-                    class="mdi mdi-delete-forever selectable text-danger"></i>
-                </div>
-                <div class="d-flex justify-content-end">
-                  <img :src=profile.picture alt="profile pic" :title=profile.name class="profile-img mt-5">
+                <div class="d-flex justify-content-between p-1">
+                  <div>
+                    <i @click="removeKeepFromVault(keeps.vaultKeepId)" title="Delete"
+                      class="mdi mdi-delete-forever selectable text-danger"></i>
+                  </div>
+                  <img :src=activeKeep.creator?.picture alt="profile pic" :title=profile.name class="profile-img mt-5">
                 </div>
               </div>
             </div>
@@ -67,15 +67,19 @@ export default {
   },
   setup(props) {
     return {
-      profile: computed(() => AppState.account),
+      account: computed(() => AppState.account),
+      profile: computed(() => AppState.activeProfile),
       vault: computed(() => AppState.vaults),
       activeKeep: computed(() => AppState.activeKeep),
+
       async removeKeepFromVault(vaultKeepId) {
         try {
-          if (await Pop.confirm("Remove Keep From Vault?")) {
-            await vaultKeepsService.removeKeepFromVault(vaultKeepId)
-            Modal.getOrCreateInstance('#vaultKeep').hide()
+          let confirm = await Pop.confirm()
+          if (!confirm) {
+            return
           }
+          Modal.getOrCreateInstance(document.getElementById(`vaultKeep${props.keeps.id}`)).hide()
+          await vaultKeepsService.removeKeepFromVault(vaultKeepId)
         } catch (error) {
           Pop.error(error, "Removing keep from vault")
         }

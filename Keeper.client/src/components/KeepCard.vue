@@ -14,7 +14,8 @@
           {{ keeps.name }}
         </h3>
         <router-link :to="{ name: 'Profile', params: { id: keeps.creatorId } }">
-          <img :title=profile.name :src=profile.picture alt="profile img" class="profile-img">
+          <img v-if="keeps.creator" :title=profile.name :src=keeps.creator?.picture alt="profile img"
+            class="profile-img">
         </router-link>
       </div>
     </div>
@@ -53,7 +54,7 @@
                         Dropdown button
                       </button>
                       <ul class="dropdown-menu">
-                        <li v-for="v in vaults" :key="v.id">
+                        <li v-for="v in vault" :key="v.id">
                           <KeepModalDropdown :vaults="v" @click="addKeepToVault(v.id)" class="p-1" />
                         </li>
                       </ul>
@@ -91,7 +92,7 @@ export default {
   setup(props) {
     return {
       profile: computed(() => AppState.account),
-      vault: computed(() => AppState.vaults),
+      vault: computed(() => AppState.accountVaults),
       vaults: computed(() => AppState.activeVault),
       activeKeep: computed(() => AppState.activeKeep),
       async deleteKeep() {

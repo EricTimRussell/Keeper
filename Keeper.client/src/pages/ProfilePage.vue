@@ -77,7 +77,7 @@ export default {
     return {
       account: computed(() => AppState.activeProfile),
       vault: computed(() => AppState.activeVault),
-      keeps: computed(() => AppState.keeps)
+      keeps: computed(() => AppState.keeps),
     };
   },
   components: { VaultCard, KeepCard }

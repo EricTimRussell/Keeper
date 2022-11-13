@@ -1,7 +1,7 @@
 <template>
   <main class="container-fluid">
     <div class="row">
-      <div class="col-sm-6 col-md-3 my-4" v-for="k in keeps" :key="k.id">
+      <div class="col-md-3 col-sm-6 my-3" v-for="k in keeps" :key="k.id">
         <!-- Inject KeepCard -->
         <KeepCard :keeps="k" />
       </div>

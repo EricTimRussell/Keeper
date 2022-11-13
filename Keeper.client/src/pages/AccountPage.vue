@@ -13,7 +13,7 @@
         <h1>{{ account.name }}</h1>
       </div>
       <div class="col-12 d-flex justify-content-center">
-        <p>{{ vault.length }} Vaults | #keeps</p>
+        <p>{{ vault.length }} Vaults</p>
       </div>
       <h3>Vaults</h3>
       <div class="col-sm-6 col-md-3 my-4" v-for="v in vault" :key="v.id">
@@ -101,7 +101,7 @@ export default {
     return {
       editable,
       account: computed(() => AppState.account),
-      vault: computed(() => AppState.activeVault),
+      vault: computed(() => AppState.accountVaults),
 
       async editAccount() {
         try {
