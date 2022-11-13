@@ -2,10 +2,12 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-light px-3 height elevation-2 row">
     <div class="row">
       <div class="col-3 d-flex">
-        <router-link class="navbar-brand" :to="{ name: 'Home' }">
-          <button class="btn btn-secondary">Home</button>
-        </router-link>
-        <div v-if="account.id" class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <div class="mt-3">
+          <router-link class="navbar-brand" :to="{ name: 'Home' }">
+            <button class="btn btn-secondary">Home</button>
+          </router-link>
+        </div>
+        <div v-if="account.id" class="btn-group dropend" role="group" aria-label="Button group with nested dropdown">
           <div class="btn-group" role="group">
             <button type="button" class="btn btn-outline dropdown-toggle" data-bs-toggle="dropdown"
               aria-expanded="false">
@@ -18,7 +20,7 @@
           </div>
         </div>
       </div>
-      <div class="col-6 d-flex justify-content-center">
+      <div class="col-6 d-flex justify-content-center mt-2">
         <img alt="logo" src="../assets/img/KeeprLogo.png" height="60" />
       </div>
       <div class="col-3">
@@ -51,7 +53,7 @@ export default {
 
 <style scoped>
 .height {
-  min-height: 8vh;
+  min-height: 8.5vh;
 }
 
 a:hover {
