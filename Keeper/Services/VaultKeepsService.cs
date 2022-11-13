@@ -54,5 +54,8 @@ public class VaultKeepsService
       throw new Exception("This vaultKeep does not belong to you");
     }
     _vkr.DeleteKeep(vaultKeep);
+    var keep = _ks.GetById(vaultKeep.KeepId);
+    keep.Kept--;
+    keep = _kr.UpdateKeep(keep);
   }
 }
