@@ -8,7 +8,7 @@
       <div class="col-12 d-flex justify-content-center">
         <h1>{{ account.name }}</h1>
       </div>
-      <div class="col-12 d-flex justify-content-center">
+      <div class="col-12 d-flex justify-content-center bg-light round">
         <h6>{{ vault.length }} Vaults | {{ keeps.length }} Keeps</h6>
       </div>
       <div>
@@ -72,6 +72,7 @@ export default {
       getUserProfile();
       getUsersKeeps();
       getUsersVaults()
+      window.scrollTo(0, 0)
     });
 
     return {
@@ -86,6 +87,11 @@ export default {
 
 
 <style lang="scss" scoped>
+.round {
+  border-radius: 2rem;
+  width: 18vh;
+}
+
 .profile-img {
   border-radius: 50%;
   max-height: 12vh;

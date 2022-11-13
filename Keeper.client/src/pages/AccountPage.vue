@@ -6,29 +6,32 @@
         <img :src=account.picture alt="profile pic" class="profile-img">
       </div>
       <div class="col-12 text-center">
-        <i data-bs-toggle="modal" data-bs-target="#exampleModal" title="Edit Account"
+        <i data-bs-toggle="modal" data-bs-target="#editAccount" title="Edit Account"
           class="mdi mdi-cog selectable text-dark"></i>
       </div>
       <div class="col-12 d-flex justify-content-center">
         <h1>{{ account.name }}</h1>
       </div>
-      <div class="col-12 d-flex justify-content-center">
-        <p>{{ vault.length }} Vaults</p>
+      <div class="col-md-2 d-flex justify-content-center bg-light round">
+        <h4>{{ vault.length }} Vaults</h4>
       </div>
-      <h3>Vaults</h3>
+      <h3 v-if="vault.length > 0">Vaults</h3>
       <div class="col-sm-6 col-md-3 my-4" v-for="v in vault" :key="v.id">
         <VaultCard :vault="v" />
       </div>
-      <div class="col-sm-12 col-md-8">
-        <h3>Keeps</h3>
-        <!-- keeps here -->
+      <div class="row">
+        <!-- NOTE keeps not setup on the backend for account page -->
+        <h3 v-if="keeps.length > 0">Keeps</h3>
+        <div class="col-sm-6 col-md-3 my-4" v-for="k in keeps" :key="k.id">
+          <!-- <KeepCard :keeps="k" /> -->
+        </div>
       </div>
     </div>
   </main>
 
   <!-- Modal -->
   <form @submit.prevent="editAccount()">
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editAccount" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -68,6 +71,7 @@ import { Modal } from "bootstrap"
 import { computed, onMounted, ref } from 'vue'
 import { useRoute } from "vue-router"
 import { AppState } from '../AppState'
+import KeepCard from "../components/KeepCard.vue"
 import VaultCard from "../components/VaultCard.vue"
 import { accountService } from "../services/AccountService"
 import { keepsService } from "../services/KeepsService"
@@ -77,6 +81,7 @@ export default {
   setup() {
     const route = useRoute();
     const editable = ref({})
+
     async function getMyVaults() {
       try {
         await vaultsService.getMyVaults();
@@ -96,29 +101,35 @@ export default {
 
     onMounted(() => {
       getMyVaults();
-      // getKeepById()
     });
     return {
       editable,
       account: computed(() => AppState.account),
       vault: computed(() => AppState.accountVaults),
+      keeps: computed(() => AppState.keeps),
 
       async editAccount() {
         try {
           const formData = editable.value
           await accountService.editAccount(formData)
-          Modal.getOrCreateInstance('#keep').hide()
+          Modal.getOrCreateInstance('#editAccount').hide()
         } catch (error) {
           Pop.error(error, "Editing Account")
         }
       }
+
     };
   },
-  components: { VaultCard }
+  components: { VaultCard, KeepCard }
 }
 </script>
 
 <style scoped>
+.round {
+  border-radius: 2rem;
+  width: 15vh;
+}
+
 .profile-img {
   border-radius: 50%;
   max-height: 12vh;
@@ -131,5 +142,6 @@ export default {
   height: 25vh;
   background-position: center;
   background-size: cover;
+  border-radius: 1rem;
 }
 </style>

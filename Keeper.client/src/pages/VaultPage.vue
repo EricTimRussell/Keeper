@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="row justify-content-center">
-      <div class="col-md-2 text-center bg-secondary round">
+      <div class="col-md-2 text-center round bg-light">
         <h4>{{ keeps.length }} Keeps</h4>
       </div>
       <div class="row justify-content-center">
@@ -72,7 +72,7 @@ export default {
 
 <style lang="scss" scoped>
 .round {
-  border-radius: 38%;
+  border-radius: 2rem;
   width: 15vh;
 }
 

@@ -1,7 +1,8 @@
 <template>
 
   <body>
-    <div class="card text-light bgimg d-flex card-shadow" :style="{ backgroundImage: `url(${keeps.img})` }">
+    <div class="card text-light bgimg d-flex card-shadow" :style="{ backgroundImage: `url(${keeps.img})` }"
+      alt="Keep Image">
       <div class=" text-end p-1">
         <i @click="deleteKeep()" v-if="keeps.creatorId == profile.id" title="Delete"
           class="mdi mdi-delete-forever selectable text-danger"></i>
@@ -14,7 +15,7 @@
           {{ keeps.name }}
         </h3>
         <router-link :to="{ name: 'Profile', params: { id: keeps.creatorId } }">
-          <img v-if="keeps.creator" :title=profile.name :src=keeps.creator?.picture alt="profile img"
+          <img v-if="keeps.creator" :title=keeps.creator?.name :src=keeps.creator?.picture alt="profile img"
             class="profile-img">
         </router-link>
       </div>
@@ -48,7 +49,7 @@
                 <!-- Add Keep to Vault -->
                 <div class="d-flex justify-content-between">
                   <div class="my-5 d-flex gap-3">
-                    <div class="dropdown" v-if="profile.id">
+                    <div class="dropdown" v-if="profile.id && vault.length > 0">
                       <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         Dropdown button
@@ -95,6 +96,7 @@ export default {
       vault: computed(() => AppState.accountVaults),
       vaults: computed(() => AppState.activeVault),
       activeKeep: computed(() => AppState.activeKeep),
+
       async deleteKeep() {
         try {
           if (await Pop.confirm("Delete Keep?"))
@@ -112,6 +114,7 @@ export default {
             keepId: AppState.activeKeep.id
           }
           await vaultKeepsService.addKeepToVault(vaultKeep)
+          Pop.success("Keep added to Vault")
         }
         catch (error) {
           Pop.error(error, "Adding keep to vault");
@@ -125,6 +128,7 @@ export default {
           Pop.error(error, "Get Keep By Id")
         }
       }
+
     };
   },
   components: { KeepModalDropdown }

@@ -11,7 +11,7 @@ class VaultsService {
 
   async getMyVaults() {
     const res = await api.get(`account/vaults`)
-    // console.log(res.data);
+    console.log(res.data);
     AppState.accountVaults = res.data.map(v => new Vault(v))
   }
 
@@ -29,7 +29,7 @@ class VaultsService {
 
   async deleteVault(vaultId) {
     const res = await api.delete(`api/vaults/${vaultId}`)
-    AppState.activeVault = AppState.activeVault.filter(v => v.id != vaultId)
+    AppState.accountVaults = AppState.accountVaults.filter(v => v.id != vaultId)
   }
 }
 export const vaultsService = new VaultsService()
