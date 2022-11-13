@@ -142,6 +142,15 @@ body {
   text-transform: lowercase;
 }
 
+.bricks {
+  columns: 4;
+
+  img.photo {
+    width: 192px;
+    margin-top: 1.5rem
+  }
+}
+
 .lower-case {
   text-transform: lowercase;
 }

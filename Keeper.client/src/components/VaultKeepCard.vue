@@ -39,7 +39,10 @@
                     <i @click="removeKeepFromVault(keeps.vaultKeepId)" title="Delete"
                       class="mdi mdi-delete-forever selectable text-danger"></i>
                   </div>
+                  <!-- Breaks on route to profile page -->
+                  <!-- <router-link :to="{ name: 'Profile', params: { id: keeps.creatorId } }"> -->
                   <img :src=activeKeep.creator?.picture alt="profile pic" :title=profile.name class="profile-img mt-5">
+                  <!-- </router-link> -->
                 </div>
               </div>
             </div>
