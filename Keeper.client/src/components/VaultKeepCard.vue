@@ -55,7 +55,6 @@
 import { computed } from "@vue/reactivity";
 import { Modal } from "bootstrap";
 import { AppState } from "../AppState";
-import { Keep } from "../models/Keep";
 import { keepsService } from "../services/KeepsService";
 import { vaultKeepsService } from "../services/VaultKeepsService";
 import Pop from "../utils/Pop";
@@ -63,7 +62,7 @@ import Pop from "../utils/Pop";
 
 export default {
   props: {
-    keeps: { type: Keep, required: true }
+    keeps: { type: Object, required: true }
   },
   setup(props) {
     return {
@@ -72,6 +71,7 @@ export default {
       vault: computed(() => AppState.vaults),
       activeKeep: computed(() => AppState.activeKeep),
 
+      // NOTE when removing vault keep, kept count only updates on refresh
       async removeKeepFromVault(vaultKeepId) {
         try {
           let confirm = await Pop.confirm()

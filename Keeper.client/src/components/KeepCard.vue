@@ -52,7 +52,7 @@
                     <div class="dropdown" v-if="profile.id && vault.length > 0">
                       <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        Dropdown button
+                        Vaults
                       </button>
                       <ul class="dropdown-menu">
                         <li v-for="v in vault" :key="v.id">
