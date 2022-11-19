@@ -7,6 +7,9 @@
     "build": "vite build",
     "lint": "vue-cli-service lint"
   },
+  "engines": {
+    "node": "^16"
+  },
   "dependencies": {
     "@bcwdev/auth0provider-client": "0.0.13",
     "@mdi/font": "7.0.96",
