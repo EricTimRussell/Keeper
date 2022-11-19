@@ -1,12 +1,13 @@
 <template>
-  <main class="container-fluid">
+
+  <body class="container-fluid">
     <div class="row margin my-5">
       <div class="col-md-3 col-sm-6 my-3" v-for="k in keeps" :key="k.id">
         <!-- Inject KeepCard -->
         <KeepCard :keeps="k" />
       </div>
     </div>
-  </main>
+  </body>
 
 
 
@@ -46,15 +47,6 @@ export default {
 .margin {
   margin-left: 15rem;
   margin-right: 15rem;
-}
-
-.bricks {
-  columns: 4;
-
-  img.photo {
-    width: 192px;
-    margin-top: 1.5rem
-  }
 }
 </style>
 

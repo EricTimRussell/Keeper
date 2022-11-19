@@ -6,7 +6,7 @@ import { api } from "./AxiosService";
 class VaultKeepsService {
   async getKeepsByVaultId(id) {
     const res = await api.get(`api/vaults/${id}/keeps`)
-    console.log(res.data);
+    // console.log(res.data);
     AppState.vaultKeeps = res.data.map(k => new Keep(k))
   }
 
